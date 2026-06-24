@@ -1,31 +1,14 @@
-package homework5;
+package homework6;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        do {
-            System.out.println("-".repeat(70));
-            System.out.println("Какое задание желает запустить?" +
-                    "\n" + "1  - Добавить число к двумерному массиву и получить их сумму " +
-                    "\n" + "2  - Создать шахматное поле"+
-                    "\n" + "3  - Создать двумерный массив по принципу змейки" +
-                    "\n" + "0  - Выйти из программы");
 
-            System.out.println("Ожидаю номер задания");
-           int chois = getInput().nextInt();
-           System.out.println("-".repeat(70));
-            switch (chois){
-                case 1 ->   setArray();
-                case 2 -> setChessboard();
-                case 3 -> arryShake();
-                case 0 -> {return;}
-                default ->  System.out.println("Введен не существующий вариант!");
-            }
-
-        } while (true);
-
+        //setArray();
+       // setChessboard();
+        arryShake();
     }
 
     public static Scanner getInput() {
@@ -41,7 +24,7 @@ public class Main {
             arryUser[0][i] = (int) (Math.random() * 100);
             arryUser[1][i] = (int) (Math.random() * 100);
         }
-        System.out.println("Изначальный двумерный массив "+"\n" + Arrays.deepToString(arryUser));
+        System.out.println("Изначальный двумерный массив " + Arrays.deepToString(arryUser));
         System.out.println("Введите число которое добавит к каждому значению массива:");
         double sumNumber = getInput().nextDouble();
 
@@ -49,7 +32,7 @@ public class Main {
             arryUser[0][i] += sumNumber;
             arryUser[1][i] += sumNumber;
         }
-        System.out.println("Новый двумерный массив " +"\n"+ Arrays.deepToString(arryUser));
+        System.out.println("Новый двумерный массив " + Arrays.deepToString(arryUser));
         double arryOne = 0.0;
         double arryTwo = 0.0;
         for (int i = 0; i < 5; i++) {
