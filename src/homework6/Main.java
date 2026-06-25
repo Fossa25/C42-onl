@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+    static CreditCard me = new CreditCard();
+    static CreditCard wife = new CreditCard();
+    static CreditCard children = new CreditCard();
+    static double translation;
     public static void main(String[] args) {
+        jobBank();
 
-        //setArray();
-       // setChessboard();
-        arryShake();
     }
 
     public static Scanner getInput() {
@@ -16,81 +18,96 @@ public class Main {
     }
 
 
-    public static void setArray() {
-        double[][] arryUser = new double[2][5];
+    public  static  void getInforBank(){
 
-        //  int n = (int) chekIntegerNumber();
-        for (int i = 0; i < 5; i++) {
-            arryUser[0][i] = (int) (Math.random() * 100);
-            arryUser[1][i] = (int) (Math.random() * 100);
-        }
-        System.out.println("Изначальный двумерный массив " + Arrays.deepToString(arryUser));
-        System.out.println("Введите число которое добавит к каждому значению массива:");
-        double sumNumber = getInput().nextDouble();
+        me.cartNumber="777777";
+        me.cartMoney=1000;
+        wife.cartNumber="333333";
+        wife.cartMoney=100;
+        children.cartNumber="555555";
+        children.cartMoney=50;
 
-        for (int i = 0; i < 5; i++) {
-            arryUser[0][i] += sumNumber;
-            arryUser[1][i] += sumNumber;
-        }
-        System.out.println("Новый двумерный массив " + Arrays.deepToString(arryUser));
-        double arryOne = 0.0;
-        double arryTwo = 0.0;
-        for (int i = 0; i < 5; i++) {
-            arryOne += arryUser[0][i];
-            arryTwo += arryUser[1][i];
-        }
-
-        System.out.println("Сумма первого массива = " + arryOne + "\n" +
-                "Сумма второго массива = " + arryTwo + "\n" +
-                "Общая сумма = " + (arryOne + arryTwo));
-    }
-    public static void setChessboard(){
-        String [][] chessboard = new String[8][8];
-        for (int row = 0; row < chessboard.length; row++) {
-            for (int col = 0;col < chessboard[row].length; col++) {
-             if(row%2==0) {
-                 chessboard[row][col] = getColor(col,"W","B");
-             }else {
-                 chessboard[row][col] =  getColor(col,"B","W");
-             }
-                System.out.print( (chessboard[row][col]+"\t"));
-          }
-            System.out.println();
-        }
     }
 
-    public static String getColor(int col,String even ,String noteven){
-        if (col % 2 == 0) {
-           return even;
-        } else {
-            return noteven;
-        }
-    }
-    public static void arryShake(){
-        int i=0;
-        System.out.println("Введите количесво строк");
-        int sumRow = getInput().nextInt();
-        System.out.println("Введите количесво столбцов");
-        int sumCol = getInput().nextInt();
+    public static void jobBank(){
+        getInforBank();
+        do {
+            System.out.println("-".repeat(70));
+            System.out.println("Какое действие будет проводить?" +
+                    "\n" + "1  - Получить информацию о кредитной карточке " +
+                    "\n" + "2  - Перевести деньги с карты на карту"+
+                    "\n" + "3  - Снять деньги" +
+                    "\n" + "0  - Выйти из программы");
 
-        int [][] shake = new int[sumRow][sumCol];
-        for (int row = 0; row < shake.length; row++) {
-            if (row % 2 == 0) {
-                for (int col = 0; col < shake[row].length; col++) {
-                    shake[row][col] = i++;
+            System.out.println("Ожидаю номер задания");
+            int chois = getInput().nextInt();
+            System.out.println("-".repeat(70));
+           if (chois==2 ||chois==3 ){
+               System.out.println("Какую сумму?");
+               translation = getInput().nextInt();
+           }
+
+            switch (chois){
+                case 1 -> getAllinformCart();
+                case 2 -> {
+                    withdrawCart(translation);
+                    if (me.translationOperation){
+                    translationCartorCart(translation);
+                    }
                 }
-            } else {
-                for (int col = shake[row].length - 1; col >= 0; col--) {
-                    shake[row][col] = i++;
-                }
+                case 3 -> withdrawCart(translation);
+                case 0 -> {return;}
+                default ->  System.out.println("Введен не существующий вариант!");
             }
-        }
 
-        for (int row = 0; row < shake.length; row++) {
-            for (int col = 0; col < shake[row].length; col++) {
-                System.out.print(shake[row][col] + "\t");
-            }
-            System.out.println();
+        } while (true);
+    }
+    public static void getAllinformCart(){
+
+        System.out.println("Какое счет проверить?" +
+                "\n" + "1  - Мой " +
+                "\n" + "2  - Жены"+
+                "\n" + "3  - Ребенка" );
+        int chois = getInput().nextInt();
+        System.out.println("-".repeat(70));
+        switch (chois){
+            case 1 ->  me.informCart(me.cartMoney);
+            case 2 ->  wife.informCart(wife.cartMoney);
+            case 3 ->  children.informCart(children.cartMoney);
+            default ->  System.out.println("Введен не существующий вариант!");
         }
     }
+    public static void withdrawCart(double translation ){
+
+        System.out.println("C какого счёта снимем деньги?" +
+                "\n" + "1  - Мой " +
+                "\n" + "2  - Жены"+
+                "\n" + "3  - Ребенка" );
+        int chois = getInput().nextInt();
+
+        System.out.println("-".repeat(70));
+        switch (chois){
+            case 1 -> me.cartMoney= me.withdrawMoney(translation);
+            case 2 -> wife.cartMoney= wife.withdrawMoney(translation);
+            case 3 -> children.cartMoney= children.withdrawMoney(translation);
+            default ->  System.out.println("Введен не существующий вариант!");
+        }
+    }
+
+    public static void translationCartorCart(double translation){
+
+        System.out.println("На какой счёта переводим деньги?" +
+                "\n" + "1  - Мой " +
+                "\n" + "2  - Жены"+
+                "\n" + "3  - Ребенка" );
+        int chois = getInput().nextInt();
+        System.out.println("-".repeat(70));
+        switch (chois){
+            case 1 -> me.cartMoney= me.accrueMony(translation);
+            case 2 -> wife.cartMoney= wife.accrueMony(translation);
+            case 3 -> children.cartMoney= children.accrueMony(translation);
+            default ->  System.out.println("Введен не существующий вариант!");
+        }
+    }
+
 }
