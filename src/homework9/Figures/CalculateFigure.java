@@ -1,15 +1,13 @@
 package homework9.Figures;
 
 public class CalculateFigure {
-
-    public Figura calculateCircle(double x1){
-        return new Circle(x1);
+    public Figure calculateCircle(double x){
+        return new Circle(x);
     }
-    public Figura calculateRectangle(double x1,double x2){
-        return new Rectangle(x1,x2);
+    public Figure calculateRectangle(double x, double y){
+        return new Rectangle(x,y);
     }
-    public Figura calculateTriangle(double x1,double x2,double x3){
-        return new Triangle(x1,x2,x3);
+    public Figure calculateTriangle(double x, double y, double z){
+        return new Triangle(x,y,z);
     }
-
 }
