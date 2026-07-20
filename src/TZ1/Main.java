@@ -1,6 +1,5 @@
 package TZ1;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -32,36 +31,48 @@ public class Main {
     public static Scanner getInput() {
         return new Scanner(System.in);
     }
+
     public static void setboard() {
-        String[][]board= setStartboard();
-        String ilementPerson;
-        String ilementAI;
-        if((Math.random() * 10)%2==0){
-            ilementPerson="X";
-            ilementAI="0";
+        String[][] board = setStartboard();
+        String ilementPerson, ilementAI;
+        boolean personFirst = (Math.random() < 0.5);
+
+        if (personFirst) {
+            ilementPerson = "X";
+            ilementAI = "0";
             System.out.println("Вы первый!");
-        }else {
-            ilementPerson="0";
-            ilementAI="X";
+        } else {
+            ilementPerson = "0";
+            ilementAI = "X";
             System.out.println("Первый AI");
         }
-        do {
-            if (ilementAI.equals("X")){
-            setNewBord(board,ilementAI);}
-            else { setIlement(board, "Person", ilementPerson);}
-            getBord(board);
-            System.out.println("-".repeat(50));
-            if (ilementAI.equals("X")){
-                setIlement(board, "Person", ilementPerson);}
-            else { setNewBord(board,ilementAI);}
-            getBord(board);
-            System.out.println("-".repeat(50));
-        } while (checWin(board,ilementAI) && checWin(board,ilementPerson));
-        if(!checWin(board,ilementAI)){
-            System.out.println("Победил AI! \n Нам срочно нужна Сара Конер!");
-        }else {
-            System.out.println("Победа за тобой! \n Уть, держи медальку");
+        boolean personTurn = personFirst;
+        boolean gameOver = false;
+        while (!gameOver) {
+                 getBord(board);
+
+            if (personTurn) {
+                System.out.println("Ваш ход (" + ilementPerson + ")");
+                setIlement(board, "Person", ilementPerson);
+                if (!checWin(board, ilementPerson)) {
+                    System.out.println("Победа за тобой! Ура, держи медальку");
+                    gameOver = true;
+                }
+            } else {
+                System.out.println("Ход AI (" + ilementAI + ")");
+                setIlement(board, "AI", ilementAI);
+                if (!checWin(board, ilementAI)) {
+                    System.out.println("Победил AI! Нам срочно нужна Сара Коннер!");
+                    gameOver = true;
+                }
+            }
+            if (!gameOver && isBoardFull(board)) {
+                System.out.println("Ничья! Все клетки заняты.");
+                gameOver = true;
+            }
+            personTurn = !personTurn;
         }
+         getBord(board);
     }
 
     public static int randomNumber() {
@@ -84,7 +95,6 @@ public class Main {
     }
 
     public static String[][] setIlement(String[][] board, String who, String ilement) {
-
         int r, c;
         if (who.equals("AI")) {
             r = randomNumber();
@@ -96,20 +106,16 @@ public class Main {
             c = getInput().nextInt();
         }
         if (board[r][c].equals("-")) {
-
             board[r][c] = ilement;
             return board;
-
         } else {
             if (who.equals("Person")) {
                 System.out.println("В этом месте уже есть значение");
             }
             setIlement(board, who, ilement);
-
         }
         return board;
     }
-
     public static String[][] setNewBord(String[][] board,String ilement) {
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
@@ -121,7 +127,6 @@ public class Main {
         }
         return board;
     }
-
     public static boolean checWin(String[][] board, String ilement) {
         for (int i = 0; i < 3; i++) {
             if (board[i][0].equals(ilement) && board[i][1].equals(ilement) && board[i][2].equals(ilement)) {
@@ -141,11 +146,19 @@ public class Main {
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
                 board[row][col] = "-";
-                System.out.print((board[row][col] + "\t"));
             }
-            System.out.println();
         }
         System.out.println("-".repeat(50));
         return board;
+    }
+    public static boolean isBoardFull(String[][] board) {
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[row].length; col++) {
+                if (board[row][col].equals("-")) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
