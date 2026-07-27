@@ -2,9 +2,7 @@ package homework11;
 
 import java.util.Arrays;
 
-public class jobString extends setStringUser {
-
-
+public class JobString extends SetStringUser {
     public String[] getArrayString() {
         String[] arrayString = new String[3];
         for (int i = 0; i < arrayString.length; i++) {
@@ -14,14 +12,11 @@ public class jobString extends setStringUser {
         System.out.println(Arrays.toString(arrayString));
         return arrayString;
     }
-
     public String [] getMaxAndMinString(String[] arrayString) {
-
         int minLongInt = 10000;
         int maxLongInt = 0;
         String minLongString = "";
         String maxLongString = "";
-
         for (String s : arrayString) {
             if (minLongInt > s.length()) {
                 minLongInt = s.length();
@@ -34,24 +29,27 @@ public class jobString extends setStringUser {
         }
         System.out.println("Min = " + minLongInt + " " + minLongString);
         System.out.println("Max = " + maxLongInt + " " + maxLongString);
-        return new String[]{String.valueOf(maxLongInt), String.valueOf(minLongInt)};
+        return new String[]{String.valueOf(maxLongInt),maxLongString,String.valueOf(minLongInt),minLongString};
     }
-
-    public void getMeanValue(String[] arrayString,String [] arrayMaxAndMin) {
-        int maxLongInt= Integer.parseInt(arrayMaxAndMin[1]);
+    public void getMeanValue(String[] arrayString,String [] arrayMaxAndMin,int task) {
+        int maxLongInt= Integer.parseInt(arrayMaxAndMin[0]);
         int minLongInt= Integer.parseInt(arrayMaxAndMin[2]);
         int meanValueLongInt = 0;
         String meanValueLongString = "";
-        for (String s : arrayString) {
-            if (minLongInt < s.length() && maxLongInt > s.length()) {
-                meanValueLongInt = s.length();
-                meanValueLongString = s;
+        if(task == 2){
+            for (String s : arrayString) {
+                if (minLongInt < s.length() && maxLongInt > s.length()) {
+                    meanValueLongInt = s.length();
+                    meanValueLongString = s;
+                }
             }
-        }
-        System.out.println("MeanValue = " + meanValueLongInt + " " + meanValueLongString);
-        for (String s : arrayString) {
-            if (meanValueLongInt > s.length()) {
-                System.out.println("Меньше средней - " + s + "\nДлина строки = " + s.length());
+            System.out.println(arrayMaxAndMin[3]+", "+meanValueLongString+", "+arrayMaxAndMin[1]);
+            System.out.println("Длинна строчек = " + arrayMaxAndMin[2]+", "+meanValueLongInt+", "+arrayMaxAndMin[0]);
+        }else{
+            for (String s : arrayString) {
+                if (meanValueLongInt > s.length()) {
+                    System.out.println("Меньше средней - " + s + "\nДлина строки = " + s.length());
+                }
             }
         }
     }
@@ -77,7 +75,7 @@ public class jobString extends setStringUser {
             }
         }
     }
-    public static void dobleString(){
+    public  void dobleString(){
       String userString =getInput();
       String newString="";
        for(int i = 0; i< userString.length(); i++){
