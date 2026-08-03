@@ -13,10 +13,9 @@ public class Main{
                     "\n" + "3  - Найти строчки меньше средней" +
                     "\n" + "4  - Найти уникальную строчку без повтора символов" +
                     "\n" + "5  - Задублировать каждый символ строчки " +
-                    "\n" + "0  - Уйти из зоопарка");
+                    "\n" + "0  - Уйти из проверки");
             int chois= SetStringUser.getInt();
             System.out.println("-".repeat(70));
-
             switch (chois){
                 case 1 -> js.getMaxAndMinString(arrayString);
                 case 2 -> js.getMeanValue(arrayString,js.getMaxAndMinString(arrayString),2);
