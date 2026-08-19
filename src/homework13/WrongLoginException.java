@@ -1,4 +1,4 @@
-package homewrok13;
+package homework13;
 
 public class WrongLoginException extends Exception {
     private final String login;

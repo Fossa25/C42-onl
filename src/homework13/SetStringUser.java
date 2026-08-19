@@ -1,4 +1,4 @@
-package homewrok13;
+package homework13;
 import java.util.Scanner;
 
 public class SetStringUser extends ColorString {

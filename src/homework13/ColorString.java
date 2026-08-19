@@ -1,4 +1,4 @@
-package homewrok13;
+package homework13;
 
 public class ColorString {
         public static final String RESET = "\u001B[0m";

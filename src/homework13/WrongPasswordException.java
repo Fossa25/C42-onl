@@ -1,4 +1,4 @@
-package homewrok13;
+package homework13;
 
 public class WrongPasswordException extends Exception {
     private final String password;
